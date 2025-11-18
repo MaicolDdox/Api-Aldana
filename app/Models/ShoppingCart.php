@@ -13,6 +13,7 @@ class ShoppingCart extends Model
     protected $fillable =
     [
         'book_id',
+        'user_id',
         'total',
     ];
 
@@ -20,5 +21,11 @@ class ShoppingCart extends Model
     public function books():BelongsTo
     {
         return $this->belongsTo(Book::class, 'book_id');
+    }
+
+    //Relacion con user
+    public function users():BelongsTo
+    {
+        return $this->belongsTo(User::class, 'book_id');
     }
 }
