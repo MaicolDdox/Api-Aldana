@@ -12,7 +12,8 @@ class ShoppingCartController extends Controller
      */
     public function index()
     {
-        
+        $shoppingCart = ShoppingCart::all();
+        return response()->json($shoppingCart, 200);
     }
 
     /**
@@ -20,7 +21,17 @@ class ShoppingCartController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $validated = $request->validate([
+            'total' => ['required', 'integer'],
+        ]);
+
+        $shoppingCart = new ShoppingCart($validated);
+        $shoppingCart->save();
+
+        return response()->json([
+            'data'    => $shoppingCart,
+            'message' => 'Libro agregado al carrito',
+        ], 201);
     }
 
     /**
@@ -28,15 +39,7 @@ class ShoppingCartController extends Controller
      */
     public function show(ShoppingCart $shoppingCart)
     {
-        //
-    }
-
-    /**
-     * Update the specified resource in storage.
-     */
-    public function update(Request $request, ShoppingCart $shoppingCart)
-    {
-        //
+        return response()->json($shoppingCart, 200);
     }
 
     /**
@@ -44,6 +47,11 @@ class ShoppingCartController extends Controller
      */
     public function destroy(ShoppingCart $shoppingCart)
     {
-        //
+        $shoppingCart->delete();
+
+        return response()->json([
+            'data'    => $shoppingCart,
+            'message' => 'Carrito de Compras con ID ' . $shoppingCart->id . ' eliminado correctamente',
+        ], 200);
     }
 }
