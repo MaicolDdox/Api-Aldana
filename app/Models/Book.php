@@ -33,7 +33,7 @@ class Book extends Model
     }
 
     //Relacion con shopping_carts
-    public function shopping_cart():HasMany
+    public function shoppingCart():HasMany
     {
         return $this->hasMany(ShoppingCart::class);
     }
