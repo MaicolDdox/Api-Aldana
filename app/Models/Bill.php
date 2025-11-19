@@ -15,9 +15,9 @@ class Bill extends Model
         'total',
     ];
 
-    //relacion con carrito de compras
-    public function shoppingCarts():BelongsTo
+    public function shoppingCart(): BelongsTo
     {
-        return $this->belongsTo(ShoppingCart::class);
+        return $this->belongsTo(ShoppingCart::class, 'shoppingCart_id');
     }
+
 }
