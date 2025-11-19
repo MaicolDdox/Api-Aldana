@@ -14,18 +14,18 @@ class ShoppingCart extends Model
     [
         'book_id',
         'user_id',
-        'total',
+        'precio',
     ];
 
     //Relacion con book
-    public function books():BelongsTo
+    public function book():BelongsTo
     {
         return $this->belongsTo(Book::class, 'book_id');
     }
 
     //Relacion con user
-    public function users():BelongsTo
+    public function user():BelongsTo
     {
-        return $this->belongsTo(User::class, 'book_id');
+        return $this->belongsTo(User::class, 'user_id');
     }
 }
