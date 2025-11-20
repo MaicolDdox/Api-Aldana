@@ -25,7 +25,7 @@ class BookController extends Controller
         $validated = $request->validate([
             'category_id'        => ['required', 'exists:categories,id'],
             'titulo'             => ['required', 'string', 'max:30'],
-            'foto'               => ['required', 'string', 'max:255'],
+            'foto'               => ['nullable', 'string', 'max:255'],
             'descripccion_larga' => ['required', 'string', 'max:65535'],
             'autor'              => ['required', 'string', 'max:50'],
             'editorial'          => ['required', 'string', 'max:50'],
