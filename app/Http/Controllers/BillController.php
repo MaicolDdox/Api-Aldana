@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Bill;
 use App\Models\ShoppingCart;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 
 class BillController extends Controller
 {
@@ -28,7 +29,7 @@ class BillController extends Controller
         $shoppingCartId = $validated['shoppingCart_id'];
 
         // Obtener todos los registros pertenecientes a este carrito
-        $shoppingCartItems = ShoppingCart::where('id', $shoppingCartId)->get();
+        $shoppingCartItems = ShoppingCart::where('user_id', Auth::id())->get();
 
         // Si el carrito está vacío
         if ($shoppingCartItems->isEmpty()) {
