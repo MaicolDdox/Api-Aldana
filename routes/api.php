@@ -28,7 +28,7 @@ Route::middleware('auth:sanctum')->group(function (){
     //=======RUTAS=========
     //=====================
 
-});
+
 
     //Rutas in Type
     Route::apiResource('types', TypeController::class);
@@ -46,3 +46,4 @@ Route::middleware('auth:sanctum')->group(function (){
     Route::apiResource('bills', BillController::class);
 
 
+});
