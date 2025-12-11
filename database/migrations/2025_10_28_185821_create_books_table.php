@@ -18,7 +18,7 @@ return new class extends Migration
             $table->foreignId('category_id')->constrained('categories')->onDelete('CASCADE');
 
             $table->string('titulo');
-            $table->string('foto');
+            $table->string('foto')->nullable();
             $table->text('descripccion_larga');
             $table->string('autor');
             $table->string('editorial');

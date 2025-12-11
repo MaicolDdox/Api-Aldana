@@ -2,8 +2,10 @@
 
 use App\Http\Controllers\Auth\SessionAuthController;
 use App\Http\Controllers\Auth\TokenAuthController;
+use App\Http\Controllers\BillController;
 use App\Http\Controllers\BookController;
 use App\Http\Controllers\CategoryController;
+use App\Http\Controllers\ShoppingCartController;
 use App\Http\Controllers\TypeController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Route;
@@ -26,12 +28,22 @@ Route::middleware('auth:sanctum')->group(function (){
     //=======RUTAS=========
     //=====================
 
+
+
     //Rutas in Type
+    Route::apiResource('types', TypeController::class);
+
+    //Rutas categories
+    Route::apiResource('categories', CategoryController::class);
+
+    //Rutas books
+    Route::apiResource('books', BookController::class);
+
+    //rutas carrito de compras
+    Route::apiResource('shopping_carts', ShoppingCartController::class);
+
+    //rutas facturas
+    Route::apiResource('bills', BillController::class);
+
 
 });
-
-Route::apiResource('/types', TypeController::class);
-Route::apiResource('/categories', CategoryController::class);
-Route::apiResource('/books', BookController::class);
-
-

@@ -13,12 +13,19 @@ class ShoppingCart extends Model
     protected $fillable =
     [
         'book_id',
-        'total',
+        'user_id',
+        'precio',
     ];
 
     //Relacion con book
-    public function books():BelongsTo
+    public function book():BelongsTo
     {
         return $this->belongsTo(Book::class, 'book_id');
+    }
+
+    //Relacion con user
+    public function user():BelongsTo
+    {
+        return $this->belongsTo(User::class, 'user_id');
     }
 }

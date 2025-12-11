@@ -9,7 +9,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "type_id": 2,
+    "type_id": 1,
     "name": "Fantasia",
     "descripccion": "genero que se caracteriza en libros de siencia ficcion"
 }

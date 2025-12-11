@@ -9,7 +9,7 @@ Accept: application/json
 Content-Type: application/json
 
 {
-    "category_id": 2,
+    "category_id": 1,
     "titulo": "El señor de los anillos",
     "foto": "portadas/lotr.jpg",
     "descripccion_larga": "Una épica historia de fantasía escrita por J.R.R. Tolkien.",
