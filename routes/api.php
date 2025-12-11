@@ -29,21 +29,4 @@ Route::middleware('auth:sanctum')->group(function (){
     //=====================
 
 
-
-    //Rutas in Type
-    Route::apiResource('types', TypeController::class);
-
-    //Rutas categories
-    Route::apiResource('categories', CategoryController::class);
-
-    //Rutas books
-    Route::apiResource('books', BookController::class);
-
-    //rutas carrito de compras
-    Route::apiResource('shopping_carts', ShoppingCartController::class);
-
-    //rutas facturas
-    Route::apiResource('bills', BillController::class);
-
-
 });
