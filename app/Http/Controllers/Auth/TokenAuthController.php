@@ -25,6 +25,9 @@ class TokenAuthController extends Controller
             'password' => bcrypt($data['password']),
         ]);
 
+        $user->assignRole('client');
+        $user->load('roles');
+
         $token = $user->createToken('default')->plainTextToken;
 
         return response()->json([
@@ -53,6 +56,8 @@ class TokenAuthController extends Controller
 
         $tokenName = $data['device'] ?? 'api';
         $token = $user->createToken($tokenName)->plainTextToken;
+
+        $user->load('roles');
 
         return response()->json([
             'message' => 'Login OK',
