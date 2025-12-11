@@ -18,7 +18,9 @@ return new class extends Migration
             $table->text('description')->nullable();
             $table->decimal('price', 10, 2);
             $table->unsignedInteger('stock');
-            $table->string('image_url')->nullable();
+            // Rutas cortas en storage y URL remotas; no guardamos blobs/base64 en BD
+            $table->string('image_path', 2048)->nullable();
+            $table->string('image_url', 2048)->nullable();
             $table->boolean('is_active')->default(true);
             $table->timestamps();
         });

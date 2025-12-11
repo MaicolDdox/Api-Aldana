@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Coffee;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Storage;
 use Symfony\Component\HttpFoundation\Response;
 
 class CoffeeController extends Controller
@@ -41,10 +42,17 @@ class CoffeeController extends Controller
     public function store(Request $request): JsonResponse
     {
         $data = $this->validatedData($request);
+        $data['is_active'] = $request->boolean('is_active', true);
+
+        if ($request->hasFile('image')) {
+            $data['image_path'] = $request->file('image')->store('coffees', 'public');
+            $data['image_url'] = null;
+        }
+
         $coffee = Coffee::create($data);
 
         return response()->json([
-            'message' => 'Café creado',
+            'message' => 'Cafe creado',
             'data' => $coffee,
         ], Response::HTTP_CREATED);
     }
@@ -52,10 +60,27 @@ class CoffeeController extends Controller
     public function update(Request $request, Coffee $coffee): JsonResponse
     {
         $data = $this->validatedData($request, true);
+        $data['is_active'] = $request->boolean('is_active', $coffee->is_active);
+
+        if ($request->hasFile('image')) {
+            if ($coffee->image_path) {
+                Storage::disk('public')->delete($coffee->image_path);
+            }
+
+            $data['image_path'] = $request->file('image')->store('coffees', 'public');
+            $data['image_url'] = null;
+        } elseif ($request->filled('image_url')) {
+            if ($coffee->image_path) {
+                Storage::disk('public')->delete($coffee->image_path);
+            }
+
+            $data['image_path'] = null;
+        }
+
         $coffee->update($data);
 
         return response()->json([
-            'message' => 'Café actualizado',
+            'message' => 'Cafe actualizado',
             'data' => $coffee,
         ]);
     }
@@ -65,7 +90,7 @@ class CoffeeController extends Controller
         $coffee->is_active = false;
         $coffee->save();
 
-        return response()->json(['message' => 'Café desactivado']);
+        return response()->json(['message' => 'Cafe desactivado']);
     }
 
     private function validatedData(Request $request, bool $isUpdate = false): array
@@ -78,8 +103,9 @@ class CoffeeController extends Controller
             'description' => ['nullable', 'string'],
             'price' => [$required, 'numeric', 'min:0'],
             'stock' => [$required, 'integer', 'min:0'],
-            'image_url' => ['nullable', 'string', 'max:2048'],
             'is_active' => ['sometimes', 'boolean'],
+            'image' => ['nullable', 'image', 'mimes:jpeg,jpg,png', 'max:2048'],
+            'image_url' => ['nullable', 'url', 'max:2048'],
         ]);
     }
 }

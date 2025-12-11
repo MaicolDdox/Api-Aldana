@@ -35,13 +35,15 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::post('/cart/checkout', [OrderController::class, 'checkout']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);
-});
 
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
     Route::post('/coffees', [CoffeeController::class, 'store']);
     Route::put('/coffees/{coffee}', [CoffeeController::class, 'update']);
     Route::delete('/coffees/{coffee}', [CoffeeController::class, 'destroy']);
 
     Route::get('/admin/orders', [OrderController::class, 'adminIndex']);
     Route::get('/admin/orders/{order}', [OrderController::class, 'adminShow']);
+});
+
+Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
+
 });
