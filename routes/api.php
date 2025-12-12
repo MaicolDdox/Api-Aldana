@@ -20,18 +20,17 @@ Route::prefix('auth')->group(function () {
 Route::get('/coffees', [CoffeeController::class, 'index']);
 Route::get('/coffees/{coffee}', [CoffeeController::class, 'show']);
 
+// Rutas protegidas comunes (todos los autenticados)
 Route::middleware('auth:sanctum')->group(function () {
     Route::get('/me', [TokenAuthController::class, 'me']);
     Route::post('/auth/logout', [TokenAuthController::class, 'logout']);
 
-    // Carrito del usuario autenticado
     Route::get('/cart', [ShoppingCartController::class, 'show']);
     Route::post('/cart/items', [ShoppingCartController::class, 'addItem']);
     Route::put('/cart/items/{item}', [ShoppingCartController::class, 'updateItem']);
     Route::delete('/cart/items/{item}', [ShoppingCartController::class, 'removeItem']);
     Route::delete('/cart', [ShoppingCartController::class, 'clear']);
 
-    // Órdenes del cliente
     Route::post('/cart/checkout', [OrderController::class, 'checkout']);
     Route::get('/orders', [OrderController::class, 'index']);
     Route::get('/orders/{order}', [OrderController::class, 'show']);
@@ -44,6 +43,4 @@ Route::middleware('auth:sanctum')->group(function () {
     Route::get('/admin/orders/{order}', [OrderController::class, 'adminShow']);
 });
 
-Route::middleware(['auth:sanctum', 'role:admin'])->group(function () {
 
-});
