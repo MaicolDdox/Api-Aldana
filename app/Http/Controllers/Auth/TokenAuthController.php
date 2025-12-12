@@ -85,6 +85,7 @@ class TokenAuthController extends Controller
             return response()->json(['message' => 'No autenticado'], Response::HTTP_UNAUTHORIZED);
         }
 
-        return response()->json($request->user());
+        // Incluimos roles para que el frontend pueda reconstruir permisos tras un refresh
+        return response()->json($request->user()->load('roles'));
     }
 }
